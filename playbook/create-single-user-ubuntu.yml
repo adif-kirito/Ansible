@@ -1,4 +1,4 @@
-# Create user for ubuntu server
+# Create single user for ubuntu server
 - name: create new user
   hosts: linux
   become: true
