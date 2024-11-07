@@ -1,0 +1,24 @@
+# Create multiple user for ubuntu server
+- name: create multiple users
+  hosts: linux
+  become: true
+  vars_file:
+    - vault.yml
+    
+  vars:
+    users:
+      - username: ansUser
+      - user_password: "{{ 'password' | password_hash('sha512') }}"
+      - username: ansUser2
+      - user_password: "{{ 'password' | password_hash('sha512') }}"
+  
+  tasks:
+    - name: create new user
+      ansible.builtin.user:
+        name: "{{ item.username }}"
+        password: "{{ item.user_password }}"
+        state: present
+        shell: /bin/bash
+        groups: "sudo"
+        create_home: true
+      loop: "{{ users }}"
