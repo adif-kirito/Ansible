@@ -1,0 +1,19 @@
+# Delete multiple users for ubuntu server
+- name: Delete multiple users
+  hosts: linux
+  become: true
+  vars_files:
+    - vault.yml
+    
+  vars:
+    users:
+      - username_to_delete: ansUser3
+      - username_to_delete: ansUser4
+  
+  tasks:
+    - name: Delete user
+      ansible.builtin.user:
+        name: "{{ item.username_to_delete }}"
+        state: absent
+        remove: true
+      loop: "{{ users }}"
