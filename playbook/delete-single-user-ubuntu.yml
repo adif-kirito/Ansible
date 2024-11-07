@@ -1,0 +1,16 @@
+# Delete single user for ubuntu server
+- name: Delete a user
+  hosts: linux
+  become: true
+  vars_files:
+    - vault.yml
+    
+  vars:
+    username_to_delete: ansUser2
+  
+  tasks:
+    - name: Delete user
+      ansible.builtin.user:
+        name: "{{ username_to_delete }}"
+        state: absent
+        remove: true
