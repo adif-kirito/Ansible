@@ -1,1 +1,20 @@
-
+# Create user for ubuntu server
+- name: create new user
+  hosts: linux
+  become: true
+  vars_file:
+    - vault.yml
+    
+  vars:
+    username: ansUser
+    user_password: "{{ 'password' | password_hash('sha512') }}"
+  
+  tasks:
+    - name: create new user
+      ansible.builtin.user:
+        name: "{{ username }}"
+        password: "{{ user_password }}"
+        state: present
+        shell: /bin/bash
+        groups: "sudo"
+        create_home: true
