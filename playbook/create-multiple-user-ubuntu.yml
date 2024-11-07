@@ -8,9 +8,9 @@
   vars:
     users:
       - username: ansUser
-      - user_password: "{{ 'password' | password_hash('sha512') }}"
+        user_password: "{{ 'password' | password_hash('sha512') }}"
       - username: ansUser2
-      - user_password: "{{ 'password' | password_hash('sha512') }}"
+        user_password: "{{ 'password' | password_hash('sha512') }}"
   
   tasks:
     - name: create new user
