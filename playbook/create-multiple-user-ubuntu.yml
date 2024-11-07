@@ -2,7 +2,7 @@
 - name: create multiple users
   hosts: linux
   become: true
-  vars_file:
+  vars_files:
     - vault.yml
     
   vars:
