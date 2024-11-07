@@ -1,0 +1,26 @@
+# List all users and fetch the file to ansible server
+- name: List all users and fetch the file
+  hosts: linux
+  become: true
+  vars_files:
+    - vault.yml
+
+  vars:
+    current_date: "{{ lookup('pipe', 'date +%Y%m%d') }}"
+    
+  tasks:  
+    - name: List all users on the server
+      shell: "cat /etc/passwd > /home/ansible/userList_{{ current_date }}.txt"
+      args:
+        executable: /bin/bash
+
+    - name: Fetch the user list file
+      fetch:
+        src: /home/ansible/userList_{{ current_date }}.txt
+        dest: /home/ansible/logs/userList_{{ inventory_hostname }}_{{ current_date }}.txt
+        flat: true
+
+    - name: Delete user list after fetch
+      file:
+        path: /home/ansible/userList_{{ current_date }}.txt
+        state: absent
