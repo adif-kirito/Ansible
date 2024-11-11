@@ -26,4 +26,4 @@ sudo apt install sshpass
 2. Edit `hosts` file. Must use **SUDO**
 3. At the bottom, add server hostname and ip address. Add also the username and password to connect to the slave server.
 
-![alt text]([http://url/to/img.png](https://github.com/adif-kirito/Ansible/blob/main/pic/anspic1.png))
+![alt text](https://github.com/adif-kirito/Ansible/blob/main/pic/anspic1.png)
