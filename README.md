@@ -60,3 +60,27 @@ sudo apt install sshpass
 | -m apt     | Manages packages with apt on Debian-based systems                                                                | ansible -m apt -a "name=nginx state=present" ubuntu               | Ensures nginx is installed on the ubuntu group of hosts                           |
 | -m debug   | Prints variables or debug information to the console                                                             | ansible -m debug -a "msg='Hello World!'" all                      | Prints the message "Hello World!" on all target hosts                             |
 | -m stat    | Checks the status of a file or directory on the target hosts.                                                    | ansible -m stat -a "path=/etc/passwd" all                         | Checks if the /etc/passwd file exists and gathers its details on all target hosts |
+
+## Vault
+
+Vault is a feature used to securely store and manage sensitive data such as passwords, API keys, and other confidential information. It allows you to encrypt variables, files, or entire playbooks to prevent unauthorized access, ensuring that sensitive information remains protected even when stored in version control systems like Git.
+
+### Key Features of Ansible Vault
+
+* **Encryption and Decryption:** Ansible Vault can encrypt data to make it readable only when decrypted using the correct password or key
+* **Integration with Playbooks:** Encrypted data can be used within playbooks, ensuring that sesitive variables are secure but still usable during task execution
+* **Flexibility:** You can encrypt individual variables, specific files (such as vars or inventory files), or entire playbooks
+
+### Common Uses Cases
+
+* Storing **credentials** (e.g. database passwords, SSH keys)
+* Securing **API tokens** or **access keys**
+* Encrypting **configuration files** that include sensitive information
+
+### Basic Commands for Using Ansible Vault
+
+* Create an Encrypted File
+  ```
+  ansible-vault create secrets.yml
+  ```
+  This command opens an editor where you can add your sensitive information. Once saved, `secrets.yml` will be encrypted.
