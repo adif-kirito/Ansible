@@ -27,3 +27,23 @@ sudo apt install sshpass
 3. At the bottom, add server hostname and ip address. Add also the username and password to connect to the slave server.
 
 ![alt text](https://github.com/adif-kirito/Ansible/blob/main/pic/anspic1.png)
+
+### Add user to slave server
+
+* Add user using the same credential as the step above to the slave server
+
+### Configure ansible config file
+
+1. Go to ansible directory - `cd /etc/ansible`
+2. Edit `ansible.cfg` file. Must use **SUDO**
+3. Uncomment the part shown below
+
+![alt text](https://github.com/adif-kirito/Ansible/blob/main/pic/anspic2.png)
+
+### Testing
+
+* Run this command to test the connection to the slave server. The result must be green to confirm its success
+
+![alt text](https://github.com/adif-kirito/Ansible/blob/main/pic/anspic3.png)
+
+## Ansible Module Flag
