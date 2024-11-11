@@ -84,3 +84,46 @@ Vault is a feature used to securely store and manage sensitive data such as pass
   ansible-vault create secrets.yml
   ```
   This command opens an editor where you can add your sensitive information. Once saved, `secrets.yml` will be encrypted.
+
+* Encrypt an Existing File
+  ```
+  ansible-vault encrypt existing_file.yml
+  ```
+  Encrypts `existing_file.yml` in place, converting its content to an encrypted format.
+
+* Decrypt an Encrypted File
+  ```
+  ansible-vault decrypt secrets.yml
+  ```
+  Opens the encrypted file in an editor for modifications while maintaining its encrypted state after saving.
+
+* View an Encrypted File
+  ```
+  ansible-vault view secrets.yml
+  ```
+  Displays the decrypted content in a read-only format without altering the encrypted file.
+
+* Encrypt Variables in Playbooks
+  ```
+  vars_files:
+    -	secrets.yml
+  ```
+  Encrypted variables can be included in playbooks like this
+
+### Using Vault Passwords
+To run playbooks that use encrypted variables, you need to provide the decryption password
+
+* Interactive Mode
+  ```
+  ansible-playbook site.yml --ask-vault-pass
+  ```
+  Prompts for the vault password interactively.
+
+* Interactive Mode
+  ```
+  ansible-playbook site.yml --vault-password-file /path/to/password-file
+  ```
+  You can use a password file for non-interactive execution
+
+
+  
