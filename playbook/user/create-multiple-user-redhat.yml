@@ -1,4 +1,4 @@
-# Create multiple user for ubuntu server
+# Create multiple user for redhat server
 - name: create multiple users
   hosts: redhat
   become: true
