@@ -6,9 +6,6 @@
   <ol>
     <li>
       <a href="#what-is-ansible">What is Ansible</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
     </li>
     <li>
       <a href="#installation-step">Installation Step</a>
@@ -17,12 +14,36 @@
         <li><a href="#install-shhpass">Install sshpass</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <li>
+      <a href="#setting-up">Setting Up</a>
+      <ul>
+        <li><a href="#add-host-to-group">Add Host to Group</a></li>
+        <li><a href="#add-user-to-slave-server">Add user to slave server</a></li>
+        <li><a href="#configure-ansible-config-file">Configure ansible config file</a></li>
+        <li><a href="#testing">Testing</a></li>
+      </ul>
+    </li>
+    <li><a href="#ansible-module-flag">Ansible Module Flag</a></li>
+    <li>
+      <a href="#vault">Vault</a>
+      <ul>
+        <li><a href="#key-features-of-ansible-vault">Key Features of Ansible Vault</a></li>
+        <li><a href="#common-uses-cases">Common Uses Casesr</a></li>
+        <li><a href="#basic-commands-for-using-ansible-vault">Basic Commands for Using Ansible Vault</a></li>
+        <li><a href="#using-vault-passwords">Using Vault Passwords</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#playbooks">Playbooks</a>
+      <ul>
+        <li><a href="#key-concepts-of-playbooks">Key Concepts of Playbooks</a></li>
+        <li><a href="#basic-structure-of-a-playbook">Basic Structure of a playbook</a></li>
+        <li><a href="#explanation-of-the-playbook">Explanation of the Playbook</a></li>
+        <li><a href="#benefits-of-using-playbooks">Benefits of Using Playbooks</a></li>
+      </ul>
+    </li>
+    <li><a href="#additional-information">Additional Information</a></li>
+    <li><a href="#reference">Reference</a></li>
   </ol>
 </details>
 
@@ -193,3 +214,6 @@ ansible -m command -a "uptime" -i hosts redhat --ask-vault-pass -e @vault.yml
 
 * `-i hosts redhat` - If using different hosts file, use `-i` tag to define the hosts file location
 * `-e @vault.yml` - If the slave server credential is store in a vault file, use `-e` to define extra variable and `@` to let ansible read the content of the vault file. Then define the vault file location
+
+## Reference
+* Ansible Documentation (https://docs.ansible.com/ansible/latest/collections/ansible/index.html)
