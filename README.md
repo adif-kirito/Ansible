@@ -32,13 +32,13 @@ Ansible is an open-source automation tool used for IT tasks like configuration m
 
 ## Installation Step
 
-Install Ansible
+### Install Ansible
 
 ```
 sudo apt install ansible
 ```
 
-Install sshpass
+### Install sshpass
 
 ```
 sudo apt install sshpass
