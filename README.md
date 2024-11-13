@@ -158,3 +158,12 @@ To run playbooks that use encrypted variables, you need to provide the decryptio
   * **Scalability:** Playbooks can manage thousands of hosts with consistent configurations.
  
   Playbooks are powerful tools for managing infrastructure as code and automating complex workflows across various environments.
+
+## Additional Information
+
+```
+ansible -m command -a "uptime" -i hosts redhat --ask-vault-pass -e @vault.yml
+```
+
+* `-i hosts redhat` - If using different hosts file, use `-i` tag to define the hosts file location
+* `-e @vault.yml` - If the slave server credential is store in a vault file, use `-e` to define extra variable and `@` to let ansible read the content of the vault file. Then define the vault file location
