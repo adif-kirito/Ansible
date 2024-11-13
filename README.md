@@ -105,8 +105,6 @@ sudo apt install sshpass
 | -m user    | Manages user accounts on the target hosts                                                                        | ansible -m user -a "name=john state=present" all                  | Ensures that the user john exists on all target hosts                             |
 | -m yum     | Manages packages with yum on Red Hat-based systems                                                               | ansible -m yum -a "name=nginx state=latest" redhat                | Installs or updates nginx to the latest version on the redhat hosts               |
 | -m apt     | Manages packages with apt on Debian-based systems                                                                | ansible -m apt -a "name=nginx state=present" ubuntu               | Ensures nginx is installed on the ubuntu group of hosts                           |
-| -m debug   | Prints variables or debug information to the console                                                             | ansible -m debug -a "msg='Hello World!'" all                      | Prints the message "Hello World!" on all target hosts                             |
-| -m stat    | Checks the status of a file or directory on the target hosts.                                                    | ansible -m stat -a "path=/etc/passwd" all                         | Checks if the /etc/passwd file exists and gathers its details on all target hosts |
 
 ## Vault
 
