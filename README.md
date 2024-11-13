@@ -1,5 +1,31 @@
 # Ansible
 
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#what-is-ansible">What is Ansible</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#installation-step">Installation Step</a>
+      <ul>
+        <li><a href="#install-ansible">Install Ansible</a></li>
+        <li><a href="#install-shhpass">Install sshpass</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
+
 ## What is Ansible
 
 Ansible is an open-source automation tool used for IT tasks like configuration management, application deployment, and orchestration. It simplifies the management of complex systems by automating routine tasks without needing custom scripts or complex programming.
