@@ -31,6 +31,7 @@
         <li><a href="#common-uses-cases">Common Uses Casesr</a></li>
         <li><a href="#basic-commands-for-using-ansible-vault">Basic Commands for Using Ansible Vault</a></li>
         <li><a href="#using-vault-passwords">Using Vault Passwords</a></li>
+        <li><a href="#vault-example">Vault Example</a></li>
       </ul>
     </li>
     <li>
@@ -169,6 +170,10 @@ To run playbooks that use encrypted variables, you need to provide the decryptio
   ansible-playbook site.yml --vault-password-file /path/to/password-file
   ```
   You can use a password file for non-interactive execution.
+
+### Vault Example
+
+![alt text](https://github.com/adif-kirito/Ansible/blob/main/pic/anspic6.png)
 
   ## Playbooks
 
