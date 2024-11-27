@@ -1,0 +1,38 @@
+# fetch file from remote server using shell command which will output the hostname and the shell result
+- name: Gather files by running shell command
+  hosts: test
+  gather_facts: true
+  tasks:
+    - name: Collect server hostname and all IP addresses
+      shell: |
+        echo "{{ inventory_hostname }}" > /home/ansible/storage_{{ inventory_hostname }}.txt
+        df -h >> /home/ansible/storage_{{ inventory_hostname }}.txt
+
+    - name: Fetch file from remote servers
+      fetch:
+        src: /home/ansible/storage_{{ inventory_hostname }}.txt
+        dest: /home/ansible/collected_files/storage_{{ inventory_hostname }}.txt
+        flat: true
+
+    - name: Delete file from remote servers
+      file:
+        path: /home/ansible/storage_{{ inventory_hostname }}.txt
+        state: absent
+
+
+- name: Merge collected files
+  hosts: localhost
+  tasks:
+    - name: Combine IP files into a single file with blank line between servers
+      shell: |
+        for file in /home/ansible/collected_files/storage_*; do
+          cat "$file" >> /home/ansible/collected_files/merged_files.txt
+          printf "\n" >> /home/ansible/collected_files/merged_files.txt  # Add a blank line after each entry
+        done
+
+    - name: Delete files starting with 'ip' locally
+      file:
+        path: "{{ item }}"
+        state: absent
+      with_fileglob:
+        - /home/ansible/collected_files/storage*
