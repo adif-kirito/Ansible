@@ -1,0 +1,50 @@
+# fetch file from remote server using shell command which will output the hostname and the shell result
+- name: Gather files by running shell command
+  hosts: redhat
+  become: true
+  gather_facts: true
+  tasks:
+    - name: Create directory
+      file:
+        path: /home/adif.firdaus/secure_{{ inventory_hostname }}
+        state: directory
+    
+    - name: Copy and rename secure files with .txt extension
+      shell: |
+        for file in /var/log/secure*; do
+          base=$(basename "$file")
+          cp "$file" "/home/adif.firdaus/secure_{{ inventory_hostname }}/${base}.txt"
+        done
+
+    - name: Archive the directory
+      archive:
+        path: /home/adif.firdaus/secure_{{ inventory_hostname }}
+        dest: /home/adif.firdaus/secure_{{ inventory_hostname }}.zip
+        format: zip
+
+    - name: Fetch file from remote servers
+      fetch:
+        src: /home/adif.firdaus/secure_{{ inventory_hostname }}.zip
+        dest: /home/jumpadmin/collected_files/
+        flat: true
+
+# fetch file from remote server using shell command which will output the hostname and the shell result
+- name: Gather files by running shell command
+  hosts: redhat
+  become: true
+  gather_facts: true
+  tasks:
+    - name: Delete file from remote servers (zip)
+      file:
+        path: /home/adif.firdaus/secure_{{ inventory_hostname }}.zip
+        state: absent
+
+    - name: Delete file from remote servers (secure file)
+      file:
+        path: /home/adif.firdaus/secure_{{ inventory_hostname }}/secure*
+        state: absent
+
+    - name: Delete file from remote servers (folder)
+      file:
+        path: /home/adif.firdaus/secure_{{ inventory_hostname }}
+        state: absent
