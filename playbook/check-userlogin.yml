@@ -16,20 +16,16 @@
       register: login_results
       ignore_errors: yes
 
-    - name: Format and save login results to a file
-      local_action: 
-        module: copy
-        content: |
-          Server {{ inventory_hostname }}
-          {% if login_results.stdout_lines %}
-          {% for line in login_results.stdout_lines %}
-          {{ line.split()[8] }} {{ ' '.join(line.split()[0:8] + line.split()[9:]) }}
-          {% endfor %}
-          {% else %}
-          No Login
-          {% endif %}
-        dest: "/home/adif.firdaus/{{ inventory_hostname }}_login_results.txt"
-      delegate_to: "{{ inventory_hostname }}"
+    - name: Format and save login results to a file on remote server
+      shell: |
+        echo "Server {{ inventory_hostname }}" > /home/adif.firdaus/{{ inventory_hostname }}_login_results.txt
+        {% if login_results.stdout_lines %}
+        {% for line in login_results.stdout_lines %}
+        echo "{{ line.split()[8] }} {{ ' '.join(line.split()[0:8] + line.split()[9:]) }}" >> /home/adif.firdaus/{{ inventory_hostname }}_login_results.txt
+        {% endfor %}
+        {% else %}
+        echo "No Login" >> /home/adif.firdaus/{{ inventory_hostname }}_login_results.txt
+        {% endif %}
 
     - name: Fetch file from remote servers
       fetch:
@@ -48,8 +44,8 @@
     - name: Combine IP files into a single file with blank line between servers
       shell: |
         for file in /home/ansible/collected_files/login/login_*; do
-          cat "$file" >> /home/ansible/collected_files/merged_files.txt
-          printf "\n" >> /home/ansible/collected_files/merged_files.txt  # Add a blank line after each entry
+          cat "$file" >> /home/ansible/collected_files/login/merged_files.txt
+          printf "\n" >> /home/ansible/collected_files/login/merged_files.txt  # Add a blank line after each entry
         done
 
     - name: Delete files starting with 'login' locally
