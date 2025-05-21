@@ -1,0 +1,73 @@
+- name: Gather files by running shell command
+  hosts: test
+  gather_facts: true
+  tasks:
+    - name: Collect server hostname and all IP addresses
+      shell: |
+        echo "{{ inventory_hostname }}" > /home/adif.firdaus/pm_{{ inventory_hostname }}.txt
+        df -h >> /home/adif.firdaus/pm_{{ inventory_hostname }}.txt
+
+    - name: Fetch file from remote servers
+      fetch:
+        src: /home/adif.firdaus/pm_{{ inventory_hostname }}.txt
+        dest: /home/jumpadmin/collected_files/preventive_maintenance/pm_{{ inventory_hostname }}>
+        flat: true
+
+    - name: Delete file from remote servers
+      file:
+        path: /home/adif.firdaus/pm_{{ inventory_hostname }}.txt
+        state: absent
+
+
+- name: Merge collected files
+  hosts: localhost
+  vars:
+    merged_dir: /home/jumpadmin/collected_files/preventive_maintenance
+  tasks:
+    - name: Set current date
+      ansible.builtin.set_fact:
+        current_date: "{{ lookup('pipe', 'date +%Y-%m-%d') }}"
+  
+    - name: Combine IP files into a single file with blank line between servers
+      shell: |
+        output_file="{{ merged_dir }}/PM_{{ site_name }}_{{ current_date }}.txt"
+        for file in /home/jumpadmin/collected_files/preventive_maintenance/pm_*; do
+          cat "$file" >> "$output_file"
+          printf "\n" >> "$output_file"
+        done
+
+    - name: Delete files starting with 'pm' locally
+      file:
+        path: "{{ item }}"
+        state: absent
+      with_fileglob:
+        - /home/jumpadmin/collected_files/preventive_maintenance/pm*
+
+
+
+#!/bin/bash
+
+echo "Select site to run: "
+echo "1) DC"
+echo "2) DRC"
+read -p "Enter option (1 or 2): " site_option
+
+case $site_option in
+  1)
+    inventory="../inventory/pmDC-hosts"
+    site_name="DC"
+    ;;
+  2)
+    inventory="../inventory/pmDRC-hosts"
+    site_name="DRC"
+    ;;
+  *)
+    echo "Invalid option"
+    exit 1
+    ;;
+esac
+
+ansible-playbook -i "$inventory" ../playbooks/pm_df.yml \
+  --ask-vault-pass \
+  -e @../vault/server.yml \
+  -e "site_name=$site_name"
